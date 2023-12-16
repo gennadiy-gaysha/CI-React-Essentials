@@ -7,18 +7,47 @@ export class HTTPRequests extends Component {
 
     this.state = {
       posts: [],
+      error: null,
     };
   }
 
   componentDidMount() {
-    axios.get("https://jsonplaceholder.typicode.com/posts").then((responce) => {
-      this.setState({ posts: responce.data });
-      console.log(responce.data);
-    });
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts/100")
+      .then((responce) => {
+        this.setState({
+          posts: Array.isArray(responce.data) ? responce.data : [responce.data],
+        });
+      })
+      .catch((error) => this.setState({ error: error.message }));
   }
 
   render() {
-    return JSON.stringify(this.state.posts);
+    // return JSON.stringify(this.state.posts);
+    const posts = this.state.posts;
+    // console.log(posts.length);
+    return (
+      <div>
+        <h1>Posts:</h1>
+        <hr />
+        {posts.length ? (
+          posts.map((post) => (
+            <div key={post.id}>
+              <h2>
+                {post.id}. {post.title}
+              </h2>
+              <h4>By user ID: {post.userId}</h4>
+              <p>{post.body}</p>
+              <hr />
+            </div>
+          ))
+        ) : this.state.error ? (
+          <p>{this.state.error}</p>
+        ) : (
+          <h4>Loading posts...</h4>
+        )}
+      </div>
+    );
   }
 
   // render() {

@@ -13,7 +13,7 @@ export class HTTPRequests extends Component {
 
   componentDidMount() {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts/100")
+      .get("https://jsonplaceholder.typicode.com/posts/")
       .then((responce) => {
         this.setState({
           posts: Array.isArray(responce.data) ? responce.data : [responce.data],

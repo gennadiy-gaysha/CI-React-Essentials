@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import css from "./css/Content.module.css";
-import PostItem from "./PostItemAPI.js";
+import PostItemAPI from "./PostItemAPI.js";
 import Loader from "./Loader.js";
 import axios from "axios";
 import API_KEY from "../secrets.js";
@@ -55,7 +55,7 @@ export class ContentAPI extends Component {
         </div>
         <div className={css.SearcResults}>
           {this.state.isLoaded ? (
-            <PostItem posts={this.state.posts} />
+            <PostItemAPI posts={this.state.posts} />
           ) : (
             <Loader />
           )}
